@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7011473264547109848}
   - component: {fileID: 1318832935634219874}
   m_Layer: 0
-  m_Name: Quad
+  m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3800,6 +3800,7 @@ MonoBehaviour:
   - {fileID: 8739239971157175436}
   - {fileID: 8739239971232144537}
   - {fileID: 8739239972296692086}
+  door: {fileID: 2288420500927111076}
 --- !u!1 &8739239971031152422
 GameObject:
   m_ObjectHideFlags: 0

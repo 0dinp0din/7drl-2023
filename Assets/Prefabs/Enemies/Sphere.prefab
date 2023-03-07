@@ -128,5 +128,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dd2b19357e1de2488001e9f0843f9fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Power: 400
+  Power: 500
   _activeState: 0

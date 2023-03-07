@@ -10,15 +10,14 @@ public class Steering_Seek_Flee : MonoBehaviour
 		Pursue,
 		Arrive
 	}
-	public GameObject SteeringTarget;
+	private GameObject SteeringTarget;
 	public float Power;
 
 	private Material _material;
 	private Rigidbody _rigidBody;
 	[SerializeField]
 	private State _activeState;
-
-	// Use this for initialization
+	
 	void Start()
 	{
 		SteeringTarget = GameObject.FindWithTag("Player");

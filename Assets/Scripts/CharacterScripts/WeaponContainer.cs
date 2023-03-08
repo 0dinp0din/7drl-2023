@@ -13,6 +13,8 @@ public class WeaponContainer : MonoBehaviour
     public Transform attackPoint;
     private float attackRange = 1.0f;
 
+    private float attackDamage = 10.0f;
+
 
     private void Start()
     {
@@ -40,9 +42,15 @@ public class WeaponContainer : MonoBehaviour
 
         Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayer);
 
-        foreach (Collider enemy in hitEnemies)
+
+        try
         {
-            Debug.Log(enemy.name);
+            hitEnemies[0].GetComponent<EnemyScript>().TakeDamage(attackDamage);
+        }
+        catch (IndexOutOfRangeException e)
+        {
+            Console.WriteLine(e);
+            throw;
         }
 
     }

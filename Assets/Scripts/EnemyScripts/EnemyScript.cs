@@ -8,44 +8,68 @@ public class EnemyScript : MonoBehaviour
     public float health;
     public float speed;
     public float attackDamage;
-
-    private bool isWalking = false;
     
+    private float timeStamp;
+
+    private bool isAlive = true;
+
     private GameObject player;
     public GameObject enemyToControl;
     private Animator _animator;
     
-    private static readonly int IsWalking = Animator.StringToHash("isWalking");
+    public GameObject attackPoint;
+    public LayerMask playerLayer;
+    
+    private float attackRange = 0.1f;
+
+    private EnemyAttackPoint checkAttackable;
+    
     private static readonly int Death = Animator.StringToHash("death");
     private static readonly int Attack = Animator.StringToHash("attack");
 
 
     private void Start()
     {
+        timeStamp = Time.time + 3;
         player = GameObject.FindWithTag("Player");
         _animator = enemyToControl.GetComponent<Animator>();
+
+        checkAttackable = attackPoint.GetComponent<EnemyAttackPoint>();
     }
 
     private void Update()
     {
-        if (isWalking)
+        if (isAlive)
         {
             FollowPlayer();
         }
-        //if player is in range, attack
         
-        //if player is in lookrange, walk towards player
+        if (checkAttackable.canAttack) //legg til timer
+        {
+            if (timeStamp <= Time.time)
+            {
+                timeStamp = Time.time + 3;
+                Hit();
+            }
+        }
 
     }
 
     void Hit()
-    {
-     _animator.SetTrigger(Attack);   
-    }
+    { 
+        _animator.SetTrigger(Attack);
+        
+        Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.transform.position, attackRange, playerLayer);
+        
+        
+        Debug.Log(hitEnemies[0]);
 
-    public void TakeDamage(int damage)
+        }
+
+    public void TakeDamage(float damage)
     {
         health -= damage;
+        _animator.SetTrigger("isDamaged");
 
         if (health <= 0)
         {
@@ -62,28 +86,14 @@ public class EnemyScript : MonoBehaviour
 
     void Die()
     {
+        isAlive = false;
         _animator.SetTrigger(Death); 
         gameObject.tag = "deadEnemy";
         
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnDrawGizmosSelected()
     {
-        if (other.CompareTag("Player"))
-        {
-            Debug.Log("InArea");
-            _animator.SetBool(IsWalking, true);
-            isWalking = true;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            Debug.Log("Not InArea");
-            _animator.SetBool(IsWalking, false);
-            isWalking = false;
-        }
+        Gizmos.DrawWireSphere(attackPoint.transform.position, attackRange);
     }
 }

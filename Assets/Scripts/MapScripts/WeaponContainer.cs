@@ -8,12 +8,16 @@ public class WeaponContainer : MonoBehaviour
 {
     private Animator weapon;
     private float timeStamp;
+    public LayerMask enemyLayer;
+
+    public Transform attackPoint;
+    private float attackRange = 1.0f;
 
 
     private void Start()
     {
         weapon = transform.GetChild(0).GetComponent<Animator>();
-        timeStamp = Time.time + 4;
+        timeStamp = Time.time + 1;
     }
 
     private void Update()
@@ -23,13 +27,24 @@ public class WeaponContainer : MonoBehaviour
         {
             if (timeStamp <= Time.time)
             {
-                timeStamp = Time.time + 4;
-                Debug.Log("click");
-                weapon.SetTrigger("attack");
+                timeStamp = Time.time + 1;
+                Attack();
             }
-
-
         }
 
     }
+
+    void Attack()
+    {
+        weapon.SetTrigger("attack");
+
+        Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayer);
+
+        foreach (Collider enemy in hitEnemies)
+        {
+            Debug.Log(enemy.name);
+        }
+
+    }
+
 }

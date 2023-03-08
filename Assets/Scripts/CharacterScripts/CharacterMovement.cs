@@ -7,6 +7,7 @@ public class CharacterMovement : MonoBehaviour
 {
  public CharacterController controller;
  private Rigidbody _rigidBody;
+ 
  private void Start()
  {
      _rigidBody = GetComponent<Rigidbody>();
@@ -41,5 +42,6 @@ public class CharacterMovement : MonoBehaviour
         
         controller.Move(Vector3.down);
     }
+    
 
 }

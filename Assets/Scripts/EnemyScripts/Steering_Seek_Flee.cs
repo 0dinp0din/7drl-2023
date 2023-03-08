@@ -25,7 +25,6 @@ public class Steering_Seek_Flee : MonoBehaviour
 		_rigidBody = GetComponent<Rigidbody>();
 
 		_activeState = State.Pursue;
-		StateEnter();
 	}
 
 	public void FixedUpdate()
@@ -50,18 +49,9 @@ public class Steering_Seek_Flee : MonoBehaviour
 			
 			Vector3 steeringForce = directionToMove * powerForCurrentFrame;
 			_rigidBody.AddForce(steeringForce);
+			
+			transform.LookAt(targetPosition);
 
-		}
-	}
-
-	private void StateEnter()
-	{
-		if (_activeState == State.Idle) {
-			_material.color = Color.grey;
-		} else if (_activeState == State.Pursue) {
-			_material.color = Color.blue;
-		} else if (_activeState == State.Seek) {
-			_material.color = Color.red;
 		}
 	}
 

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
-    private int _health = 10;
+    private float _health = 100;
     private int _speed;
     
     [SerializeField] public HealthContainer hc;
@@ -13,7 +13,23 @@ public class CharacterStats : MonoBehaviour
 
     private void Start()
     {
-        hc.UpdateHealth(_health);
+        hc.setMaxHealth(_health);
+    }
+    
+    public void TakeDamage(float damage)
+    {
+        _health -= damage;
+        hc.setHealth(_health);
+
+        if (_health <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        // Skjerm for å vise at spillet er over og spør om å prøve igjen
     }
 
 }

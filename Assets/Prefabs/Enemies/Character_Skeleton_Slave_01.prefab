@@ -1420,7 +1420,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 30
   speed: 0
-  attackDamage: 0
+  attackDamage: 10
   enemyToControl: {fileID: 197377466990680351}
   attackPoint: {fileID: 197377467300417678}
   playerLayer:

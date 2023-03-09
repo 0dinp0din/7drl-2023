@@ -61,10 +61,9 @@ public class EnemyScript : MonoBehaviour
         
         Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.transform.position, attackRange, playerLayer);
         
-        
-        Debug.Log(hitEnemies[0]);
+        hitEnemies[0].GetComponent<CharacterStats>().TakeDamage(attackDamage);
 
-        }
+    }
 
     public void TakeDamage(float damage)
     {

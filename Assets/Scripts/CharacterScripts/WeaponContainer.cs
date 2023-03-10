@@ -9,9 +9,13 @@ public class WeaponContainer : MonoBehaviour
     private Animator weapon;
     private float timeStamp;
     public LayerMask enemyLayer;
+    public AudioSource audio;
+
+    public AudioClip hitSound;
+    public AudioClip missSound;
 
     public Transform attackPoint;
-    private float attackRange = 1.0f;
+    private float attackRange = 0.5f;
 
     private float attackDamage = 10.0f;
 
@@ -39,6 +43,7 @@ public class WeaponContainer : MonoBehaviour
     void Attack()
     {
         weapon.SetTrigger("attack");
+        
 
         Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayer);
 
@@ -46,11 +51,11 @@ public class WeaponContainer : MonoBehaviour
         try
         {
             hitEnemies[0].GetComponent<EnemyScript>().TakeDamage(attackDamage);
+            audio.PlayOneShot(hitSound);
         }
         catch (IndexOutOfRangeException e)
         {
-            Console.WriteLine(e);
-            throw;
+            audio.PlayOneShot(missSound);
         }
 
     }

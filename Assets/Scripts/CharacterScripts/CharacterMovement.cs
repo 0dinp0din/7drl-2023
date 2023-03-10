@@ -13,7 +13,7 @@ public class CharacterMovement : MonoBehaviour
      _rigidBody = GetComponent<Rigidbody>();
  }
 
- private float speed = 1.0f;
+ private float speed = 5.0f;
     
     // Update is called once per frame
     void Update()
@@ -22,18 +22,6 @@ public class CharacterMovement : MonoBehaviour
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
-        //Walk and run stuff
-        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey("w"))
-        {
-            speed = 8;
-        }
-
-        if (!Input.GetKey(KeyCode.LeftShift) && Input.GetKey("w"))
-        {
-            speed = 5;
-        }
-
-        
 
         // Move functionality
 

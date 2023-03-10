@@ -4846,7 +4846,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 197377467300417677}
-  - component: {fileID: 197377467300417676}
   - component: {fileID: 197377467300417679}
   m_Layer: 0
   m_Name: AttackPoint
@@ -4870,19 +4869,6 @@ Transform:
   m_Father: {fileID: 197377466990351587}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &197377467300417676
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 197377467300417678}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1.61, z: 1}
-  m_Center: {x: 0, y: -0.09, z: 0}
 --- !u!114 &197377467300417679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4895,7 +4881,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfe68f786988ea348ba9b0a1e9de6430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canAttack: 0
 --- !u!1001 &197377467406858283
 PrefabInstance:
   m_ObjectHideFlags: 0

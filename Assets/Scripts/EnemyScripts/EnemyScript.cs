@@ -20,17 +20,21 @@ public class EnemyScript : MonoBehaviour
     public GameObject attackPoint;
     public LayerMask playerLayer;
     
-    private float attackRange = 0.1f;
+    private float attackRange = 0.5f;
+    private float attackRangeRayCast = 0.5f;
+
 
     private EnemyAttackPoint checkAttackable;
     
     private static readonly int Death = Animator.StringToHash("death");
     private static readonly int Attack = Animator.StringToHash("attack");
+    private static readonly int IsDamaged = Animator.StringToHash("isDamaged");
+    private static readonly int IsWalking = Animator.StringToHash("isWalking");
 
 
     private void Start()
     {
-        timeStamp = Time.time + 3;
+        timeStamp = Time.time + 1;
         player = GameObject.FindWithTag("Player");
         _animator = enemyToControl.GetComponent<Animator>();
 
@@ -44,14 +48,8 @@ public class EnemyScript : MonoBehaviour
             FollowPlayer();
         }
         
-        if (checkAttackable.canAttack) //legg til timer
-        {
-            if (timeStamp <= Time.time)
-            {
-                timeStamp = Time.time + 3;
-                Hit();
-            }
-        }
+        Test();
+        Debug.DrawRay(attackPoint.transform.position, transform.forward * attackRangeRayCast, Color.red);
 
     }
 
@@ -59,16 +57,19 @@ public class EnemyScript : MonoBehaviour
     { 
         _animator.SetTrigger(Attack);
         
+    }
+
+    void AnimationHit()
+    {
         Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.transform.position, attackRange, playerLayer);
         
         hitEnemies[0].GetComponent<CharacterStats>().TakeDamage(attackDamage);
-
     }
 
     public void TakeDamage(float damage)
     {
         health -= damage;
-        _animator.SetTrigger("isDamaged");
+        _animator.SetTrigger(IsDamaged);
 
         if (health <= 0)
         {
@@ -95,4 +96,29 @@ public class EnemyScript : MonoBehaviour
     {
         Gizmos.DrawWireSphere(attackPoint.transform.position, attackRange);
     }
+
+    void Test()
+    {
+        // Cast a ray in front of the character
+        RaycastHit hit;
+        if (Physics.Raycast(attackPoint.transform.position, transform.forward, out hit, attackRangeRayCast, playerLayer))
+        {
+            Debug.Log("hitting player");
+            //_animator.SetBool(IsWalking, false);
+            
+            if (timeStamp <= Time.time)
+            {
+                timeStamp = Time.time + 1;
+                Hit();
+            }
+            
+            Debug.Log("Attacking player!");
+        }
+        else
+        {
+            //_animator.SetBool(IsWalking, true);
+        }
+    }
+    
+    
 }

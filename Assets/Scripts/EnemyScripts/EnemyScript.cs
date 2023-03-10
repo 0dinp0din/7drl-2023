@@ -48,7 +48,7 @@ public class EnemyScript : MonoBehaviour
             FollowPlayer();
         }
         
-        Test();
+        CheckIfAttackable();
         Debug.DrawRay(attackPoint.transform.position, transform.forward * attackRangeRayCast, Color.red);
 
     }
@@ -62,8 +62,16 @@ public class EnemyScript : MonoBehaviour
     void AnimationHit()
     {
         Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.transform.position, attackRange, playerLayer);
+
+        try
+        {
+            hitEnemies[0].GetComponent<CharacterStats>().TakeDamage(attackDamage);
+        }
+        catch (IndexOutOfRangeException e)
+        {
+            
+        }
         
-        hitEnemies[0].GetComponent<CharacterStats>().TakeDamage(attackDamage);
     }
 
     public void TakeDamage(float damage)
@@ -97,14 +105,13 @@ public class EnemyScript : MonoBehaviour
         Gizmos.DrawWireSphere(attackPoint.transform.position, attackRange);
     }
 
-    void Test()
+    void CheckIfAttackable()
     {
         // Cast a ray in front of the character
         RaycastHit hit;
         if (Physics.Raycast(attackPoint.transform.position, transform.forward, out hit, attackRangeRayCast, playerLayer))
         {
             Debug.Log("hitting player");
-            //_animator.SetBool(IsWalking, false);
             
             if (timeStamp <= Time.time)
             {
@@ -114,10 +121,7 @@ public class EnemyScript : MonoBehaviour
             
             Debug.Log("Attacking player!");
         }
-        else
-        {
-            //_animator.SetBool(IsWalking, true);
-        }
+
     }
     
     

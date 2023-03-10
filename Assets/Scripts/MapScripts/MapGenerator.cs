@@ -6,7 +6,7 @@ public class MapGenerator : MonoBehaviour
 {
     private int mapPosZ;
     
-    private int mapSize = 10;
+    private int mapSize = 6;
 
     public GameObject[] mapChunks;
     public GameObject[] startChunk;

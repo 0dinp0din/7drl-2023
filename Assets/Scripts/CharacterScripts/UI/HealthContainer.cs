@@ -28,7 +28,6 @@ public class HealthContainer : MonoBehaviour
     public void setHealth(float health)
     {
         slider.value = health;
-        Debug.Log(health);
         text.text = health + " hp";
     }
 }

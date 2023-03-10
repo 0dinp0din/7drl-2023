@@ -7,7 +7,9 @@ public class EnemyScript : MonoBehaviour
 {
     public float health;
     public float speed;
-    public float attackDamage;
+    public int attackDamage;
+
+    public bool isBossDead = false;
     
     private float timeStamp;
 
@@ -94,6 +96,7 @@ public class EnemyScript : MonoBehaviour
 
     void Die()
     {
+        isBossDead = true;
         isAlive = false;
         _animator.SetTrigger(Death); 
         gameObject.tag = "deadEnemy";
